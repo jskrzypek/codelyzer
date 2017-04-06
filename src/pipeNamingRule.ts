@@ -42,15 +42,15 @@ export class Rule extends Lint.Rules.AbstractRule {
   private prefixChecker: Function;
   private validator: Function;
 
-  constructor(ruleName:string, value:any, disabledIntervals:Lint.IDisabledInterval[]) {
-    super(ruleName, value, disabledIntervals);
-    if (value[1] === 'camelCase') {
+  constructor(options: Lint.IOptions) {
+    super(options);
+    if (this.ruleArguments[0] === 'camelCase') {
       this.validator = SelectorValidator.camelCase;
     }
-    if (value.length>2) {
+    if (this.ruleArguments.length>1) {
       this.hasPrefix = true;
-      let prefixExpression:string = (value.slice(2)||[]).join('|');
-      this.prefix = (value.slice(2)||[]).join(',');
+      let prefixExpression:string = (this.ruleArguments.slice(1)||[]).join('|');
+      this.prefix = (this.ruleArguments.slice(1)||[]).join(',');
       this.prefixChecker = SelectorValidator.prefix(prefixExpression, 'camelCase');
     }
   }

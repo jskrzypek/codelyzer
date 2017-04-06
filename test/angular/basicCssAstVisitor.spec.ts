@@ -22,6 +22,7 @@ describe('basicCssAstVisitor', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -48,6 +49,7 @@ describe('basicCssAstVisitor', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null

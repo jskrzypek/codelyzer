@@ -25,6 +25,7 @@ describe('ng2Walker', () => {
       class Foobar {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -51,6 +52,7 @@ describe('ng2Walker', () => {
       }
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -73,6 +75,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -95,6 +98,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -116,6 +120,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -139,6 +144,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -162,6 +168,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -184,6 +191,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -203,6 +211,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null
@@ -222,6 +231,7 @@ describe('ng2Walker', () => {
       class Baz {}
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null

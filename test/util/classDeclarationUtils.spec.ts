@@ -15,6 +15,7 @@ describe('ng2Walker', () => {
       }
     `;
     let ruleArgs: tslint.IOptions = {
+      ruleSeverity: 'error',
       ruleName: 'foo',
       ruleArguments: ['foo'],
       disabledIntervals: null

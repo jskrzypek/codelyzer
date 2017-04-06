@@ -20,35 +20,42 @@ export class UsePropertyDecorator extends Lint.Rules.AbstractRule {
     return sprintf(config.errorMessage, decoratorName, className, config.propertyName, decorators);
   }
 
-  constructor(private config: IUsePropertyDecoratorConfig, ruleName: string, value: any, disabledIntervals: Lint.IDisabledInterval[]) {
-    super(ruleName, value, disabledIntervals);
+  constructor(private config: IUsePropertyDecoratorConfig, options: Lint.IOptions) {
+    super(options);
   }
 
   public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
     let documentRegistry = ts.createDocumentRegistry();
-    let languageServiceHost = Lint.createLanguageServiceHost('file.ts', sourceFile.getFullText());
     return this.applyWithWalker(
       new DirectiveMetadataWalker(sourceFile,
+        this.ruleName,
         this.getOptions(),
-        ts.createLanguageService(languageServiceHost, documentRegistry), this.config));
+        this.config));
   }
 }
 
-class DirectiveMetadataWalker extends Lint.RuleWalker {
-  private languageService : ts.LanguageService;
-  private typeChecker : ts.TypeChecker;
+class DirectiveMetadataWalker extends Lint.AbstractWalker<Lint.IOptions> {
 
-  constructor(sourceFile: ts.SourceFile, options: Lint.IOptions,
-    languageService : ts.LanguageService, private config: IUsePropertyDecoratorConfig) {
-      super(sourceFile, options);
-      this.languageService = languageService;
-      this.typeChecker = languageService.getProgram().getTypeChecker();
+  constructor(sourceFile: ts.SourceFile, ruleName: string, options: Lint.IOptions, private config: IUsePropertyDecoratorConfig) {
+      super(sourceFile, ruleName, options);
   }
 
-  visitClassDeclaration(node: ts.ClassDeclaration) {
+  public walk(sourceFile: ts.SourceFile) {
+        const cb = (node: ts.Node): void => {
+            // Finds specific node types and do checking.
+            if (node.kind === ts.SyntaxKind.ClassDeclaration) {
+                this.validateClassDeclaration(node as ts.ClassDeclaration);
+            }
+            // Continue rescursion: call function `cb` for all children of the current node.
+            return ts.forEachChild(node, cb);
+        };
+        // Start recursion for all children of `sourceFile`.
+        return ts.forEachChild(sourceFile, cb);
+    }
+
+  validateClassDeclaration(node: ts.ClassDeclaration) {
     (<ts.Decorator[]>node.decorators || [])
       .forEach(this.validateDecorator.bind(this, node.name.text));
-    super.visitClassDeclaration(node);
   }
 
   private validateDecorator(className: string, decorator: ts.Decorator) {
@@ -69,11 +76,10 @@ class DirectiveMetadataWalker extends Lint.RuleWalker {
         .filter(prop => (<any>prop.name).text === this.config.propertyName)
         .forEach(prop => {
           let p = <any>prop;
-          this.addFailure(
-            this.createFailure(
+          this.addFailureAt(
               p.getStart(),
               p.getWidth(),
-              UsePropertyDecorator.formatFailureString(this.config, decoratorName, className)));
+              UsePropertyDecorator.formatFailureString(this.config, decoratorName, className));
       });
     }
   }

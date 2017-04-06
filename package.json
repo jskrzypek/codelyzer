@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "tslint -c tslint.json src/**/*.ts test/**/*.ts",
+    "lint:typecheck": "tslint --type-check -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
     "release": "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package && BUILD_TYPE=prod npm run set:vars && npm run build:links",
     "build": "rimraf dist && tsc && npm run lint && npm t",
     "copy:common": "cp README.md dist",
@@ -61,12 +62,12 @@
     "rimraf": "^2.5.2",
     "rxjs": "5.0.1",
     "ts-node": "1.2.2",
-    "tslint": "^4.0.0",
+    "tslint": "^5.0.0",
     "typescript": "^2.1.4",
     "zone.js": "^0.8.4"
   },
   "peerDependencies": {
-    "tslint": "^4.0.0",
+    "tslint": ">=4.0.0",
     "@angular/compiler": "^2.3.1 || >=4.0.0-beta <5.0.0",
     "@angular/core": "^2.3.1 || >=4.0.0-beta <5.0.0"
   },

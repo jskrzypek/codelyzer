@@ -19,11 +19,11 @@ export abstract class SelectorRule extends Lint.Rules.AbstractRule {
   private FAILURE_PREFIX;
   private isMultiSelectors:boolean;
 
-  constructor(ruleName: string, value: any, disabledIntervals: Lint.IDisabledInterval[]) {
-    let type = value[1];
-    let prefix = value[2] || [];
-    let name = value[3];
-    super(ruleName, value, disabledIntervals);
+  constructor(options: Lint.IOptions) {
+    let type = options.ruleArguments[0];
+    let prefix = options.ruleArguments[1] || [];
+    let name = options.ruleArguments[2];
+    super(options);
     this.setMultiPrefix(prefix);
     this.setPrefixArguments(prefix);
     this.setPrefixValidator(prefix, name);
